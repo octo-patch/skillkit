@@ -46,9 +46,9 @@ function resolveMiniMaxBaseUrl(configBaseUrl?: string): string {
 /**
  * MiniMax text provider.
  *
- * Reuses the existing OpenAI-compatible chat-completions request and response
- * implementation, with MiniMax-specific defaults: the `MINIMAX_API_KEY` env var,
- * the MiniMax-M3 default model, and selectable global/CN base URLs.
+ * Uses OpenAI-compatible chat completions with MiniMax-specific defaults:
+ * the `MINIMAX_API_KEY` env var, the MiniMax-M3.1-Flash default model,
+ * and selectable global/CN base URLs.
  */
 export class MiniMaxProvider implements LLMProvider {
   readonly name = 'minimax' as const;
@@ -62,7 +62,7 @@ export class MiniMaxProvider implements LLMProvider {
 
   constructor(config: ProviderConfig = {}) {
     this.apiKey = config.apiKey || process.env.MINIMAX_API_KEY || '';
-    this.model = config.model || 'MiniMax-M3';
+    this.model = config.model || 'MiniMax-M3.1-Flash';
     this.maxTokens = config.maxTokens ?? 4096;
     this.temperature = config.temperature ?? 0.7;
     this.baseUrl = resolveMiniMaxBaseUrl(config.baseUrl);
@@ -222,7 +222,7 @@ ${skillContent}`;
         body: JSON.stringify({
           model: this.model,
           messages,
-          max_tokens: this.maxTokens,
+          max_completion_tokens: this.maxTokens,
           temperature: this.temperature,
         }),
         signal: controller.signal,

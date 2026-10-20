@@ -165,7 +165,7 @@ export function getProviderModels(providerName: ProviderName): string[] {
       'meta-llama/llama-3.1-70b-instruct',
       'mistralai/mistral-large',
     ],
-    minimax: ['MiniMax-M3', 'MiniMax-M2.7'],
+    minimax: ['MiniMax-M3.1-Flash', 'MiniMax-M3'],
     mock: ['mock'],
   };
 
